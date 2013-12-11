@@ -11,6 +11,9 @@ class Menu
   float repulsion;
   float sticky;
   ControlP5  cp5;
+  Textlabel energia1;
+  Textlabel energia2;
+  
   
   
   Menu(     ControlP5 cp5,
@@ -49,8 +52,8 @@ class Menu
      .setWidth(width/15)
      .setHeight(17)
      .setPosition(width*0.2,7)
-     .setRange(1,10)
-     .setValue(10)
+     .setRange(1,20)
+     .setValue(15)
      ;
     cp5.addSlider("Tensao")
      .setWidth(width/15)
@@ -84,7 +87,22 @@ class Menu
      .setWidth(width/8)
      .setHeight(17)
      .setPosition(width*0.735,30)
-     .setRange(250,1000)
+     .setRange(250,1500)
+     .setValue(500)
+     ;
+    
+    energia1 = cp5.addTextlabel("label1")
+     .setText("")
+     .setPosition(width*0.005,30)
+     .setColorValue(0)
+     .setFont(createFont("Aller.ttf",14))
+     ;
+    
+    energia2 = cp5.addTextlabel("label2")
+     .setText("")
+     .setPosition(width*0.195,30)
+     .setColorValue(0)
+     .setFont(createFont("Aller.ttf",14))
      ;
   }
   void update()

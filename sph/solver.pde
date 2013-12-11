@@ -100,6 +100,7 @@ class Solver
     float dx = p.x - mouseX;
     float dy = p.y - mouseY;
     float dist = sqrt(dx * dx + dy * dy);
+    p.selected = false;
     if (dist < 40)
     {
       if (mousePressed && !keyPressed)
@@ -108,6 +109,7 @@ class Solver
         {
           p.vx = (p.vx + (mouseX - lm.x) * 0.5) / 2;
           p.vy = (p.vx + (mouseY - lm.y) * 0.5) / 2;
+          p.selected = true;
         }
       }
     }
@@ -120,7 +122,7 @@ class Solver
   */
   void flock()
   {
-    for (int i = 0; i < np - 1; i ++){
+    for (int i = 0; i < np ; i ++){
       Particle p1 = ps[i];
       advect(p1);
       constrict(p1);
@@ -200,17 +202,17 @@ class Solver
     if (p.x > right - buffer)
     {
       p.x = right - buffer;
-      p.vx = 0;
+      p.vx = -0.01*p.vx;
     }
     if (p.y < up + buffer)
     {
       p.y = up + buffer;
-      p.vy = 0;
+      p.vy = -0.01*p.vy;
     }
     if (p.x < left + buffer)
     {
       p.x = left + buffer;
-      p.vx = 0;
+      p.vx = -0.01*p.vx;
     }
     if (p.y > down - 10) p.vx *= stickyness;
     if (p.x > right - 10) p.vy *= stickyness;

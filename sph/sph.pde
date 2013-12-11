@@ -13,6 +13,7 @@ float maxSpeed = 4;
 float tension = 0.008;
 float repulsion = 0.00008;
 float stickyness = 1;
+public float max_energy, del_energy, total_energy, group_energy;
 
 void setup()
 {
@@ -41,7 +42,7 @@ void setup()
   stroke(0, 0, 255);
   strokeWeight(2);
   fill(255);
- 
+  max_energy = (pow(2*s.maxSpeed, 2) + s.gravity * height) / 2;
 }
 void drawParticle(PVector center, float opacity) {
   beginShape(QUAD);
@@ -60,25 +61,36 @@ void draw()
   background(0);
   s.step();
   menu.update();
+  total_energy = 0;
+  group_energy = 0;
   updateVariables();
   for (int i = 0; i < s.np; i ++){
     Particle p = s.ps[i];
     //drawParticle(new PVector(p.x,p.y),1);
-    fill(0, 0, 255);
+    p.calcEnergy(gravity);
+    total_energy += p.energy;
+    if (p.selected)
+      group_energy += p.energy;
+    del_energy = 255 - (255 * p.energy / max_energy);
+    fill(255,(int)del_energy,(int)del_energy);
     ellipse(p.x, p.y, partSize, partSize);
   }
   fill(0, 0, 255);
   
   text(round(frameRate), width - 20, 20);
+  menu.energia1.setText("Energia total: " + (int)total_energy);
+  menu.energia2.setText("Energia selecionada: " + (int)group_energy);
+
 }
 void updateVariables()
 {
-   s.gravity = menu.cp5.getController("Gravidade").getValue() / 500;
+   s.gravity = menu.cp5.getController("Gravidade").getValue() / 250;
    s.maxSpeed = menu.cp5.getController("Velocidade Max").getValue() / 2.5;
    s.tension = menu.cp5.getController("Tensao").getValue() / 125;
-   s.repulsion = menu.cp5.getController("Repulsao").getValue() / 1250;
+   s.repulsion = menu.cp5.getController("Repulsao").getValue() / 12500;
    s.stickyness = (10 - menu.cp5.getController("Viscosidade").getValue()/5) / 10;
    s.np = (int)menu.cp5.getController("Particulas").getValue();
    partSize = menu.cp5.getController("Tamanho da particula").getValue();
+   max_energy = (pow(2*s.maxSpeed, 2) + s.gravity * height) / 2;
 }
 
