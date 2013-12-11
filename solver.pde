@@ -1,57 +1,29 @@
-/*
-  classe que calcula os valores das partículas
-  e controla todas as variáveis do sistema.
-*/
-class Solver
+/*class Solver
 {
-  int np;
-  float gravity;
-  float damping;
-  float maxSpeed;
-  float tension;
-  float repulsion;
-  float stickyness;
+  int np = 1;
   V[] ps = new V[5000];
   float up = 0, right = 0, left = 0, down = 0, buffer = 0;
-  float cellWidth = 100;
-  float cellHeight = 100;
+  float cellWidth = 10;
+  float cellHeight = 10;
   float d0 = 12;
   float w0 = 30;
   float d1 = 10;
   float d2 = 15;
+  float gravity = 0.02;
+  float damping = 0.99;
+  float maxSpeed = 4;
+  float tension = 0.008;
+  float repulsion = 0.0008;
+  float stickyness = 1;
   PVector lm = new PVector(0, 0);
    
-  Solver(float _g,
-         float _d,
-         int _n,
-         float _mS,
-         float _t,
-         float _r,
-         float _s
-         )
+  Solver()
   {
-    np = _n;
-    gravity = _g;
-    damping = _d;
-    maxSpeed = _mS;
-    tension = _t;
-    repulsion = _r;
-    stickyness = _s;
     for (int i = 0; i < np; i ++)
     {
       ps[i] = new V();
     }
   }
-  //eu que fiz
-  void addParticle(){
-    if(keyPressed && key == 'p'){
-      s.np ++;
-      s.ps[s.np - 1] = new V();
-      s.ps[s.np - 1].x = 50;
-      s.ps[s.np - 1].y = 50;
-    }  
-  }
-  // set bounds? limites da tela?
   void setBnd(float nup, float ndown, float nright, float nleft, float nbuffer)
   {
     up = nup;
@@ -60,25 +32,14 @@ class Solver
     left = nleft;
     buffer = nbuffer;
   }
-  //chamadas do codigo para todo draw
   void step()
   {
-    ellipse(mouseX, mouseY, 10, 10);
     interactions();
     flock();
-    //addParticle();
-    //advect(ps[np - 1]);
+    advect(ps[np - 1]);
     lm.x = mouseX;
     lm.y = mouseY;
   }
-  
-  /*
-    recalcula os valores de uma particula:
-      - aumenta a velocidade e/ou diminui-a se passar do máximo;
-      - aumenta a aceleracao;
-      - calcula a proxima posicao;
-      - modifica a velocidade com base no clique do mouse;
-  */
   void advect(V p)
   {
     p.nn = 0;
@@ -91,6 +52,7 @@ class Solver
     p.ay *= 0.9;
     p.nextX = p.x + p.vx;
     p.nextY = p.y + p.vy;
+    ellipse(mouseX, mouseY, 10, 10);
     if (p.vx > maxSpeed) p.vx = maxSpeed;
     if (p.vx < -maxSpeed) p.vx = -maxSpeed;
     if (p.vy > maxSpeed) p.vy = maxSpeed;
@@ -113,11 +75,6 @@ class Solver
     }
     if (dist < 20) if (mousePressed)if (mouseButton == RIGHT) p.vy = -2;
   }
-  
-  /* 
-    flock = bando, grupo (en-pt)
-    faz as ligações entre as particulas e modifica sua aceleração e talvez a densidade
-  */
   void flock()
   {
     for (int i = 0; i < np - 1; i ++){
@@ -137,12 +94,6 @@ class Solver
       }
     }
   }
-  /* 
-    Se as duas particulas estiverem numa distancia pequena o
-    suficiente para ambas se influenciarem, é feito novamente
-    o cálculo de suas acelerações/velocidades, num esquema de
-    colisão. 
-  */
   void densStep(V p1, V p2, float dist)
   {
     if (abs(p1.cellX - p2.cellX) < 2 && abs(p1.cellY - p2.cellY) < 2)
@@ -184,11 +135,6 @@ class Solver
       }
     }
   }
-  /*
-    compressão (en-pt)?
-    quando passa do limite da borda, volta para a posição
-    máxima antes dela e tem a velocidade naquele eixo = 0.
-  */
   void constrict(V p)
   {
     float bounce = 1;
@@ -217,11 +163,6 @@ class Solver
     if (p.y < up + 10) p.vx *= stickyness;
     if (p.x < left + 10) p.vy *= stickyness;
   }
-  
-  /*
-    interações com o mouse.
-    aumenta e diminui o número de partículas.
-  */
   void interactions()
   {
     if (keyPressed && key == CODED && keyCode == UP)
@@ -258,3 +199,19 @@ class Solver
     return (x1 * w + x2) / (w + 1);
   }
 }
+class V
+{
+  float x = 0, y = 0, vx = 0, vy = 0, ax = 0, ay = 0, nextX = 0, nextY = 0;
+  int cellX = 0, cellY = 0;
+  PVector pv = new PVector();
+  PVector yv = new PVector();
+  int nn = 1;
+  V[] ns = new V[5000];
+  boolean surfaceParticle = false;
+  PImage img;
+  
+  void addN(V nID)
+  {
+    if (nn < 5000) ns[nn] = nID;
+  }
+}*/

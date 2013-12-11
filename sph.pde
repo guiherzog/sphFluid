@@ -1,42 +1,87 @@
+Solver s = new Solver();
+void setup()
+{
+  size(500, 300, JAVA2D);
+  background(0);
+  //frameRate(24);
+  s.setBnd(0, height, width, 0, 10);
+  stroke(0, 0, 255);
+  strokeWeight(2);
+  fill(255);
+}
+void draw()
+{
+  background(255);
+  s.step();
+  for (int i = 0; i < s.np; i ++){
+    V p = s.ps[i];
+    line(p.x, p.y, p.x + p.vx, p.y + p.vy);
+    //ellipse(p.x, p.y, 6, 6);
+  }
+  //filter(BLUR, 3);
+  //filter(THRESHOLD);
+  fill(0, 0, 255);
+  text("framerate: " + round(frameRate) + 
+  "   number of particles:" + s.np + 
+  "   gravity: " + s.gravity +
+  "   damping: " + s.damping +
+  "\nmaxSpeed: " + s.maxSpeed +
+  "   tension: " + s.tension +
+  "   repulsion: " + s.repulsion +
+  "   stickyness: " + s.stickyness, 30, 30);
+}
+class Box
+{
+  float x, y, w, h;
+  Box(float nx, float ny, float nw, float nh){
+    nw /= 2;
+    nh /= 2;
+    x = nx + nw;
+    y = ny + nh;
+    w = nw;
+    h = nh;
+  }
+}
+class Circle
+{
+  float x, y, r, px, py;
+  Circle(float nx, float ny, float nr){
+    x = nx;
+    y = ny;
+    r = nr;
+  }
+  void update()
+  {
+    px = x;
+    py = y;
+  }
+}
+
 /*
   classe que calcula os valores das partículas
   e controla todas as variáveis do sistema.
 */
 class Solver
 {
-  int np;
-  float gravity;
-  float damping;
-  float maxSpeed;
-  float tension;
-  float repulsion;
-  float stickyness;
+  int np = 100;
   V[] ps = new V[5000];
   float up = 0, right = 0, left = 0, down = 0, buffer = 0;
-  float cellWidth = 100;
-  float cellHeight = 100;
+  float cellWidth = 10;
+  float cellHeight = 10;
   float d0 = 12;
   float w0 = 30;
   float d1 = 10;
   float d2 = 15;
+  float gravity = 0.02;
+  float damping = 0.99;
+  float maxSpeed = 4;
+  float tension = 0.008;
+  float repulsion = 0.0008;
+  float stickyness = 1;
   PVector lm = new PVector(0, 0);
    
-  Solver(float _g,
-         float _d,
-         int _n,
-         float _mS,
-         float _t,
-         float _r,
-         float _s
-         )
+  Solver()
   {
-    np = _n;
-    gravity = _g;
-    damping = _d;
-    maxSpeed = _mS;
-    tension = _t;
-    repulsion = _r;
-    stickyness = _s;
     for (int i = 0; i < np; i ++)
     {
       ps[i] = new V();
@@ -256,5 +301,29 @@ class Solver
   float WM(float x1, float x2, float w)
   {
     return (x1 * w + x2) / (w + 1);
+  }
+}
+
+/*
+  classe da partícula. guarda sua posição,
+  aceleração, velocidade, próxima posição,
+  vizinhos(ns?), se está na superfície, etc.
+*/
+class V
+{
+  float x = 0, y = 0, vx = 0, vy = 0, ax = 0, ay = 0, nextX = 0, nextY = 0;
+  int cellX = 0, cellY = 0;
+  PVector pv = new PVector();
+  PVector yv = new PVector();
+  int nn = 1;
+  V[] ns = new V[5000];
+  boolean surfaceParticle = false;
+  PImage img;
+  V(){
+    //img = loadImage("waterP.png");
+  }
+  void addN(V nID)
+  {
+    if (nn < 5000) ns[nn] = nID;
   }
 }
