@@ -10,7 +10,7 @@ int number_particles = 100;
 float gravity = 0.02;
 float damping = 0.99;
 float maxSpeed = 4;
-float tension = 0.008;
+float tension = 0.08;
 float repulsion = 0.0008;
 float stickyness = 1;
 
@@ -64,7 +64,8 @@ void draw()
   for (int i = 0; i < s.np; i ++){
     Particle p = s.ps[i];
     //drawParticle(new PVector(p.x,p.y),1);
-    ellipse(p.x, p.y, 2, 2);
+    fill(0, 0, 255);
+    ellipse(p.x, p.y, 20, 20);
   }
   fill(0, 0, 255);
 }

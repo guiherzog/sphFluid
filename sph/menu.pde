@@ -29,27 +29,63 @@ class Menu
     this.tension = t;
     this.repulsion = r;
     this.sticky = s;
+    this.cp5 = cp5;
     noStroke();
     
+    
+  PFont p = createFont("Aller.ttf",12); 
+  cp5.setControlFont(p,14);
+  cp5.setColorLabel(color(255,128));
+    
     cp5.addSlider("Gravidade")
-     .setPosition(width*0.01,5)
+     .setWidth(width/15)
+     .setHeight(15)
+     .setPosition(width*0.01,7)
      .setRange(0,0.10)
-     .setValue(g);
+     .setValue(g)
      ;
     cp5.addSlider("Damping")
-     .setPosition(width*0.21,5)
+     .setWidth(width/15)
+     .setHeight(15)
+     .setPosition(width*0.198,7)
      .setRange(0,255)
      ;
-    cp5.addSlider("Particles")
-     .setPosition(width*0.81,5)
+    cp5.addSlider("Velocidade Max")
+     .setWidth(width/15)
+     .setHeight(15)
+     .setPosition(width*0.365,7)
+     .setRange(0.5,6)
+     ;
+    cp5.addSlider("Tensao")
+     .setWidth(width/15)
+     .setHeight(15)
+     .setPosition(width*0.6,7)
      .setRange(10,1500)
-     ;    
+     ;
+    cp5.addSlider("Repulsao")
+     .setWidth(width/15)
+     .setHeight(15)
+     .setPosition(width*0.758,7)
+     .setRange(10,1500)
+     ;
+    cp5.addSlider("Viscosidade")
+     .setWidth(width/15)
+     .setHeight(15)
+     .setPosition(width*0.01,30)
+     .setRange(10,1500)
+     ;
+    cp5.addSlider("Particulas")
+     .setWidth(width/15)
+     .setHeight(15)
+     .setPosition(width*0.8,30)
+     .setRange(10,1500)
+     ;
   }
   void update()
   {
     fill(150);
     noStroke();
-    rect(0,0,width,height*0.03);
+    rect(0,0,width,height*0.085);
 
   } 
 }
