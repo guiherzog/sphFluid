@@ -11,7 +11,7 @@ class Solver
   float tension;
   float repulsion;
   float stickyness;
-  V[] ps = new V[5000];
+  Particle[] ps = new Particle[5000];
   float up = 0, right = 0, left = 0, down = 0, buffer = 0;
   float cellWidth = 100;
   float cellHeight = 100;
@@ -39,14 +39,14 @@ class Solver
     stickyness = _s;
     for (int i = 0; i < np; i ++)
     {
-      ps[i] = new V();
+      ps[i] = new Particle();
     }
   }
   //eu que fiz
   void addParticle(){
     if(keyPressed && key == 'p'){
       s.np ++;
-      s.ps[s.np - 1] = new V();
+      s.ps[s.np - 1] = new Particle();
       s.ps[s.np - 1].x = 50;
       s.ps[s.np - 1].y = 50;
     }  
@@ -79,7 +79,7 @@ class Solver
       - calcula a proxima posicao;
       - modifica a velocidade com base no clique do mouse;
   */
-  void advect(V p)
+  void advect(Particle p)
   {
     p.nn = 0;
     p.x = ((p.x + p.vx) + p.nextX) / 2;
@@ -121,11 +121,11 @@ class Solver
   void flock()
   {
     for (int i = 0; i < np - 1; i ++){
-      V p1 = ps[i];
+      Particle p1 = ps[i];
       advect(p1);
       constrict(p1);
       for (int j = i + 1; j < np; j ++){
-        V p2 = ps[j];
+        Particle p2 = ps[j];
         float dist = dist(p1.x, p1.y, p2.x, p2.y);
         if (dist < d0){
           float coeff = (dist * 0.1) * w0;
@@ -143,7 +143,7 @@ class Solver
     o cálculo de suas acelerações/velocidades, num esquema de
     colisão. 
   */
-  void densStep(V p1, V p2, float dist)
+  void densStep(Particle p1, Particle p2, float dist)
   {
     if (abs(p1.cellX - p2.cellX) < 2 && abs(p1.cellY - p2.cellY) < 2)
     {
@@ -189,7 +189,7 @@ class Solver
     quando passa do limite da borda, volta para a posição
     máxima antes dela e tem a velocidade naquele eixo = 0.
   */
-  void constrict(V p)
+  void constrict(Particle p)
   {
     float bounce = 1;
     if (p.y > down - buffer)
@@ -231,7 +231,7 @@ class Solver
         for (int i = 0; i < 1; i ++)
         {
           np ++;
-          ps[np - 1] = new V();
+          ps[np - 1] = new Particle();
           ps[np - 1].y = mouseY;
           ps[np - 1].x = mouseX + random(40) - 20;
           ps[np - 1].nextX = ps[np - 1].x;

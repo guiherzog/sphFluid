@@ -30,9 +30,11 @@ class Menu
     this.repulsion = r;
     this.sticky = s;
     noStroke();
+    
     cp5.addSlider("Gravidade")
      .setPosition(width*0.01,5)
      .setRange(0,0.10)
+     .setValue(g);
      ;
     cp5.addSlider("Damping")
      .setPosition(width*0.21,5)
