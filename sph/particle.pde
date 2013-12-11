@@ -14,6 +14,8 @@ class Particle
   PImage img;
   Particle()
   {
+    this.x = random(width*2 - 10);
+    this.y = random(height*2 - 10);
     //img = loadImage("waterP.png");
   }
   void addN(Particle nID)

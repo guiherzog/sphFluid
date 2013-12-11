@@ -1,17 +1,17 @@
 import controlP5.*;
 
-PImage sprite;  
+PImage sprite;
 // Atributos Configuráveis
 float partSize = 10;
 Solver s;
 Menu menu;
 
-int number_particles = 100;
+int number_particles = 2000;
 float gravity = 0.02;
 float damping = 0.99;
 float maxSpeed = 4;
-float tension = 0.08;
-float repulsion = 0.0008;
+float tension = 0.008;
+float repulsion = 0.00008;
 float stickyness = 1;
 
 void setup()
@@ -29,7 +29,7 @@ void setup()
                   repulsion,
                   stickyness);
                   
-  s =  new Solver(gravity,
+  s = new Solver(gravity,
                   damping,
                   number_particles,
                   maxSpeed,
@@ -52,11 +52,11 @@ void drawParticle(PVector center, float opacity) {
   vertex(center.x - partSize/2, center.y - partSize/2, 0, 0);
   vertex(center.x + partSize/2, center.y - partSize/2, sprite.width, 0);
   vertex(center.x + partSize/2, center.y + partSize/2, sprite.width, sprite.height);
-  vertex(center.x - partSize/2, center.y + partSize/2, 0, sprite.height);                
-  endShape();  
+  vertex(center.x - partSize/2, center.y + partSize/2, 0, sprite.height);
+  endShape();
 }
 void draw()
-{  
+{
   background(0);
   s.step();
   menu.update();
@@ -71,6 +71,11 @@ void draw()
 }
 void updateVariables()
 {
-   s.gravity = menu.cp5.getController("Gravidade").getValue();
+   s.gravity = menu.cp5.getController("Gravidade").getValue() / 500;
+   s.maxSpeed = menu.cp5.getController("Velocidade Max").getValue() / 2.5;
+   s.tension = menu.cp5.getController("Tensao").getValue() / 62.5;
+   s.repulsion = menu.cp5.getController("Repulsao").getValue() / 1250;
+   s.stickyness = (10 - menu.cp5.getController("Viscosidade").getValue()/5) / 10;
+   s.np = (int)menu.cp5.getController("Particulas").getValue();
 }
 

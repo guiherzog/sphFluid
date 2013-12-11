@@ -228,16 +228,13 @@ class Solver
     {
       if (mousePressed && mouseButton == LEFT)
       {
-        for (int i = 0; i < 1; i ++)
-        {
-          np ++;
-          ps[np - 1] = new Particle();
-          ps[np - 1].y = mouseY;
-          ps[np - 1].x = mouseX + random(40) - 20;
-          ps[np - 1].nextX = ps[np - 1].x;
-          ps[np - 1].nextY = ps[np - 1].y;
-          ps[np - 1].vy = -2;
-        }
+          ps[np] = new Particle();
+          ps[np].y = mouseY;
+          ps[np].x = mouseX + random(40) - 20;
+          ps[np].nextX = ps[np].x;
+          ps[np].nextY = ps[np].y;
+          ps[np].vy = -2;
+          np++;
       }
       if (mousePressed && mouseButton == RIGHT)
       {

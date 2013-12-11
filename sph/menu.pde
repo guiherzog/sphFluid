@@ -31,61 +31,59 @@ class Menu
     this.sticky = s;
     this.cp5 = cp5;
     noStroke();
-    
+
     
   PFont p = createFont("Aller.ttf",12); 
   cp5.setControlFont(p,14);
-  cp5.setColorLabel(color(255,128));
+  cp5.setColorLabel(color(0,0));
     
     cp5.addSlider("Gravidade")
      .setWidth(width/15)
-     .setHeight(15)
+     .setHeight(17)
      .setPosition(width*0.01,7)
-     .setRange(0,0.10)
-     .setValue(g)
-     ;
-    cp5.addSlider("Damping")
-     .setWidth(width/15)
-     .setHeight(15)
-     .setPosition(width*0.198,7)
-     .setRange(0,255)
+     .setRange(0,20)
+     .setValue(9.8)
      ;
     cp5.addSlider("Velocidade Max")
      .setWidth(width/15)
-     .setHeight(15)
-     .setPosition(width*0.365,7)
-     .setRange(0.5,6)
+     .setHeight(17)
+     .setPosition(width*0.2,7)
+     .setRange(1,10)
+     .setValue(10)
      ;
     cp5.addSlider("Tensao")
      .setWidth(width/15)
-     .setHeight(15)
-     .setPosition(width*0.6,7)
-     .setRange(10,1500)
+     .setHeight(17)
+     .setPosition(width*0.44,7)
+     .setRange(0.5,10)
+     .setValue(0.5)
      ;
     cp5.addSlider("Repulsao")
      .setWidth(width/15)
-     .setHeight(15)
-     .setPosition(width*0.758,7)
-     .setRange(10,1500)
+     .setHeight(17)
+     .setPosition(width*0.6,7)
+     .setRange(1,10)
+     .setValue(1)
      ;
     cp5.addSlider("Viscosidade")
      .setWidth(width/15)
-     .setHeight(15)
-     .setPosition(width*0.01,30)
-     .setRange(10,1500)
+     .setHeight(17)
+     .setPosition(width*0.78,7)
+     .setRange(0,10)
+     .setValue(0)
      ;
     cp5.addSlider("Particulas")
      .setWidth(width/15)
-     .setHeight(15)
-     .setPosition(width*0.8,30)
-     .setRange(10,1500)
+     .setHeight(17)
+     .setPosition(width*0.78,30)
+     .setRange(250,1000)
      ;
   }
   void update()
   {
     fill(150);
     noStroke();
-    rect(0,0,width,height*0.085);
+    rect(0,0,width,height*0.0895);
 
   } 
 }
