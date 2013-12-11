@@ -12,10 +12,10 @@ class Particle
   Particle[] ns = new Particle[5000];
   boolean surfaceParticle = false;
   PImage img;
-  Particle()
+  Particle(float x, float y)
   {
-    this.x = random(width*2 - 10);
-    this.y = random(height*2 - 10);
+    this.x = x;
+    this.y = y;
     //img = loadImage("waterP.png");
   }
   void addN(Particle nID)

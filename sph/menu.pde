@@ -1,7 +1,7 @@
+int Particulas;
+
 class Menu
 {
-
-  
   // Atributos //
   float gravity;
   float damping;
@@ -11,6 +11,7 @@ class Menu
   float repulsion;
   float sticky;
   ControlP5  cp5;
+  
   
   Menu(     ControlP5 cp5,
             float g,
@@ -55,8 +56,8 @@ class Menu
      .setWidth(width/15)
      .setHeight(17)
      .setPosition(width*0.44,7)
-     .setRange(0.5,10)
-     .setValue(0.5)
+     .setRange(1,10)
+     .setValue(1)
      ;
     cp5.addSlider("Repulsao")
      .setWidth(width/15)
@@ -72,10 +73,17 @@ class Menu
      .setRange(0,10)
      .setValue(0)
      ;
-    cp5.addSlider("Particulas")
+    cp5.addSlider("Tamanho da particula")
      .setWidth(width/15)
      .setHeight(17)
-     .setPosition(width*0.78,30)
+     .setPosition(width*0.44,30)
+     .setRange(3,40)
+     .setValue(20)
+     ;
+    cp5.addSlider("Particulas")
+     .setWidth(width/8)
+     .setHeight(17)
+     .setPosition(width*0.735,30)
      .setRange(250,1000)
      ;
   }

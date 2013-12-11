@@ -39,14 +39,14 @@ class Solver
     stickyness = _s;
     for (int i = 0; i < np; i ++)
     {
-      ps[i] = new Particle();
+      ps[i] = new Particle(random(width*2 - 10), random(height*2 - 10));
     }
   }
   //eu que fiz
   void addParticle(){
     if(keyPressed && key == 'p'){
       s.np ++;
-      s.ps[s.np - 1] = new Particle();
+      s.ps[s.np - 1] = new Particle(random(width*2 - 10), random(height*2 - 10));
       s.ps[s.np - 1].x = 50;
       s.ps[s.np - 1].y = 50;
     }  
@@ -228,17 +228,19 @@ class Solver
     {
       if (mousePressed && mouseButton == LEFT)
       {
-          ps[np] = new Particle();
-          ps[np].y = mouseY;
-          ps[np].x = mouseX + random(40) - 20;
+          ps[np] = new Particle(mouseX + random(40) - 20, mouseY);
           ps[np].nextX = ps[np].x;
           ps[np].nextY = ps[np].y;
           ps[np].vy = -2;
           np++;
+          menu.cp5.getController("Particulas").setValue(np);
       }
       if (mousePressed && mouseButton == RIGHT)
       {
-        if (np > 3)np -= 3;
+        if (np > 3) {
+          np -= 3;
+          menu.cp5.getController("Particulas").setValue(np);
+        }
       }
     }
   }

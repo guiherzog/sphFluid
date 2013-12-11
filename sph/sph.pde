@@ -65,17 +65,20 @@ void draw()
     Particle p = s.ps[i];
     //drawParticle(new PVector(p.x,p.y),1);
     fill(0, 0, 255);
-    ellipse(p.x, p.y, 20, 20);
+    ellipse(p.x, p.y, partSize, partSize);
   }
   fill(0, 0, 255);
+  
+  text(round(frameRate), width - 20, 20);
 }
 void updateVariables()
 {
    s.gravity = menu.cp5.getController("Gravidade").getValue() / 500;
    s.maxSpeed = menu.cp5.getController("Velocidade Max").getValue() / 2.5;
-   s.tension = menu.cp5.getController("Tensao").getValue() / 62.5;
+   s.tension = menu.cp5.getController("Tensao").getValue() / 125;
    s.repulsion = menu.cp5.getController("Repulsao").getValue() / 1250;
    s.stickyness = (10 - menu.cp5.getController("Viscosidade").getValue()/5) / 10;
    s.np = (int)menu.cp5.getController("Particulas").getValue();
+   partSize = menu.cp5.getController("Tamanho da particula").getValue();
 }
 
