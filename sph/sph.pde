@@ -84,10 +84,10 @@ void draw()
 }
 void updateVariables()
 {
-   s.gravity = menu.cp5.getController("Gravidade").getValue() / 250;
+   s.gravity = menu.cp5.getController("Gravidade").getValue() / 500;
    s.maxSpeed = menu.cp5.getController("Velocidade Max").getValue() / 2.5;
    s.tension = menu.cp5.getController("Tensao").getValue() / 125;
-   s.repulsion = menu.cp5.getController("Repulsao").getValue() / 12500;
+   s.repulsion = menu.cp5.getController("Repulsao").getValue() / 1250;
    s.stickyness = (10 - menu.cp5.getController("Viscosidade").getValue()/5) / 10;
    s.np = (int)menu.cp5.getController("Particulas").getValue();
    partSize = menu.cp5.getController("Tamanho da particula").getValue();
