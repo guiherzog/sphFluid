@@ -38,7 +38,7 @@ void setup()
                   repulsion,
                   stickyness);
                   
-  s.setBnd(0, height, width, 0, 5);
+  s.setBnd(0, height, width, 0, 50);
   stroke(0, 0, 255);
   strokeWeight(2);
   fill(255);
