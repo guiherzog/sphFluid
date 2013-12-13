@@ -13,6 +13,7 @@ class Menu
   ControlP5  cp5;
   Textlabel energia1;
   Textlabel energia2;
+  String botao;
   
   
   
@@ -36,7 +37,6 @@ class Menu
     this.cp5 = cp5;
     noStroke();
 
-    
   PFont p = createFont("Aller.ttf",12); 
   cp5.setControlFont(p,14);
   cp5.setColorLabel(color(0,0));
@@ -76,17 +76,23 @@ class Menu
      .setRange(0,10)
      .setValue(0)
      ;
-    cp5.addSlider("Tamanho da particula")
+     cp5.addButton("Botao")
+     .setValue(100)
+     .setCaptionLabel("Pressao")
+     .setPosition(width*0.45,30)
+     .setSize(width/12,17)
+     ;
+    cp5.addSlider("Tamanho")
      .setWidth(width/15)
      .setHeight(17)
-     .setPosition(width*0.44,30)
+     .setPosition(width*0.6,30)
      .setRange(3,40)
      .setValue(20)
      ;
     cp5.addSlider("Particulas")
-     .setWidth(width/8)
+     .setWidth(width/10)
      .setHeight(17)
-     .setPosition(width*0.735,30)
+     .setPosition(width*0.78,30)
      .setRange(250,1500)
      .setValue(500)
      ;

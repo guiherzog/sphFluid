@@ -13,7 +13,8 @@ float maxSpeed = 4;
 float tension = 0.008;
 float repulsion = 0.00008;
 float stickyness = 1;
-public float max_energy, del_energy, total_energy, group_energy;
+float max_energy, del_energy, total_energy, group_energy;
+float pressure, del_pressure, total_pressure, group_pressure;
 
 void setup()
 {
@@ -66,7 +67,6 @@ void draw()
   updateVariables();
   for (int i = 0; i < s.np; i ++){
     Particle p = s.ps[i];
-    //drawParticle(new PVector(p.x,p.y),1);
     p.calcEnergy(gravity);
     total_energy += p.energy;
     if (p.selected)
@@ -78,9 +78,27 @@ void draw()
   fill(0, 0, 255);
   
   text(round(frameRate), width - 20, 20);
-  menu.energia1.setText("Energia total: " + (int)total_energy + " J");
-  menu.energia2.setText("Energia selecionada: " + (int)group_energy + " J");
+  if (menu.cp5.getController("Botao").getCaptionLabel().getText().equals("Pressao")){
+    menu.energia1.setText("Pressao total: " + (int)total_pressure + " atm");
+    menu.energia2.setText("Pressao selecionada: " + (int)group_pressure + " atm");
+  }
+  else{
+    menu.energia1.setText("Energia total: " + (int)total_energy + " J");
+    menu.energia2.setText("Energia selecionada: " + (int)group_energy + " J");
+  }  
 
+}
+void controlEvent(ControlEvent theEvent) {
+    if(theEvent.isController()) {
+       if(theEvent.controller().name()=="Botao"){
+          if(menu.cp5.getController("Botao").getCaptionLabel().getText().equals("Pressao")){
+            menu.cp5.getController("Botao").setCaptionLabel("Energia");
+          }
+          else{      
+            menu.cp5.getController("Botao").setCaptionLabel("Pressao");
+          }      
+    }
+  }
 }
 void updateVariables()
 {
@@ -90,7 +108,7 @@ void updateVariables()
    s.repulsion = menu.cp5.getController("Repulsao").getValue() / 1250;
    s.stickyness = (10 - menu.cp5.getController("Viscosidade").getValue()/5) / 10;
    s.np = (int)menu.cp5.getController("Particulas").getValue();
-   partSize = menu.cp5.getController("Tamanho da particula").getValue();
+   partSize = menu.cp5.getController("Tamanho").getValue();
    max_energy = (pow(2*s.maxSpeed, 2) + s.gravity * height) / 2;
 }
 
