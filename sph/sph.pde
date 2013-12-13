@@ -78,8 +78,8 @@ void draw()
   fill(0, 0, 255);
   
   text(round(frameRate), width - 20, 20);
-  menu.energia1.setText("Energia total: " + (int)total_energy);
-  menu.energia2.setText("Energia selecionada: " + (int)group_energy);
+  menu.energia1.setText("Energia total: " + (int)total_energy + " J");
+  menu.energia2.setText("Energia selecionada: " + (int)group_energy + " J");
 
 }
 void updateVariables()
